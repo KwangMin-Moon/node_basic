@@ -32,11 +32,13 @@ router
 router.get('/:id/comments', async (req, res, next) => {
   try {
     const comments = await Comment.findAll({
-      includes: {
+      include: {
         model: User,
         where: { id: req.params.id },
       },
     });
+
+    console.log(comments[0].User.name);
     res.json(comments);
   } catch (err) {
     console.error(err);
